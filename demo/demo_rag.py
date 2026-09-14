@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 =============================================================================
 DEMO SCRIPT 1: CONVERSATIONAL RAG, PRONOUN REWRITING & GUARDRAILS

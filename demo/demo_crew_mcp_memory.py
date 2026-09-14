@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 =============================================================================
 DEMO SCRIPT 2: CREWAI MULTI-AGENT CREW, MCP INTEGRATION & LONG-TERM MEMORY
