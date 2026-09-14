@@ -164,7 +164,11 @@ def load_mcp_tools() -> list:
 
         # Dynamically resolve existing relative paths to absolute paths for cross-platform compatibility
         resolved_args = [
-            os.path.abspath(a) if (isinstance(a, str) and (os.path.exists(a) or os.path.isdir(a))) else a
+            (
+                os.path.abspath(a)
+                if (isinstance(a, str) and (os.path.exists(a) or os.path.isdir(a)))
+                else a
+            )
             for a in args
         ]
 
