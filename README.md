@@ -502,8 +502,18 @@ python -m venv .venv
 
 ## 3. Install Dependencies
 
-``` bash
+### macOS / Linux
+```bash
+pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+### Windows (Recommended via `uv`)
+> 💡 **Tip for Windows:** Installing `uv` is strongly recommended to avoid dependency backtracking loops and eliminate Rust/Cargo source-build errors (`Cargo not installed`):
+```powershell
+python -m pip install --upgrade pip
+pip install uv
+uv pip install -r requirements.txt
 ```
 
 ------------------------------------------------------------------------
@@ -649,11 +659,15 @@ To connect filesystem tools or custom APIs:
      "mcpServers": {
        "filesystem": {
          "command": "node",
-         "args": ["/path/to/server/index.js", "/path/to/data"]
+         "args": [
+           "node_modules/@modelcontextprotocol/server-filesystem/dist/index.js",
+           "./data"
+         ]
        }
      }
    }
    ```
+> 💡 **Cross-Platform Portability:** `services/mcp_client.py` dynamically resolves relative arguments (such as `./data`) into platform-native absolute paths at runtime, enabling seamless execution across Windows, macOS, and Linux without hardcoding machine-specific directories.
 3. During autonomous research (Option 2), the system will connect to the server, discover tools, and provide them to the researcher agent automatically.
 
 ------------------------------------------------------------------------
@@ -863,6 +877,21 @@ The v2.6.0 validation suite covers bounded memory behavior,
 context-aware question rewriting, unresolved references, conversational
 follow-ups, and Tavily result structure/relevance. The v3.0.0 mock suites cover memory tables, MCP, pipeline loaders, rerankers, and fallback overrides.
 
+### Code Quality & Linting
+
+The repository strictly enforces formatting and linting via GitHub Actions CI:
+
+```bash
+# Lint checks
+ruff check .
+
+# Check Black formatting
+black --check .
+
+# Auto-format with Black
+black .
+```
+
 ------------------------------------------------------------------------
 
 # 📦 Release History
@@ -870,6 +899,11 @@ follow-ups, and Tavily result structure/relevance. The v3.0.0 mock suites cover 
   ---------------------------------------------------------------------
   Version                       Description
   ----------------------------- ---------------------------------------
+  **v3.0.1**                    Cross-Platform Windows & CI Hardening: fast `uv` installation
+                                support, portable relative MCP paths (`./data`), Windows UTF-8
+                                terminal encoding fix, and GitHub Actions Ruff/Black automated
+                                linting compliance (eliminated shebang `EXE001` errors).
+
   **v3.0.0**                    Autonomous Multi-Agent Crews, SQLite LTM preference
                                 engines, Model Context Protocol stdio dynamic tool
                                 integrations, and fallback refusal metadata overrides.
