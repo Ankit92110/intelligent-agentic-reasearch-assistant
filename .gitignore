@@ -36,3 +36,5 @@ htmlcov/
 
 # Local presentation study guides
 study_guides/
+
+outputs/
